@@ -1,6 +1,8 @@
 const mysql = require("mysql")
 const inquirer = require("inquirer");
-const { config } = require("../assets/cred.js")
+const { config } = require("../assets/cred.js");
+const cTable = require('console.table');
+
 
 const connection = mysql.createConnection(config);
 

@@ -10,27 +10,26 @@ USE employeeTracker_db;
 CREATE TABLE department(
   -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL
-
+  name VARCHAR(30) NOT NULL
 );
 
 -- role table --
 CREATE TABLE role(
   -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  title VARCHAR(50) NOT NULL,
-  salary INT NOT NULL,
-  department_id INT NOT NULL
+  title VARCHAR(30) NOT NULL,
+  salary DECIMAL(10,4) NOT NULL,
+  department_id INT NOT NULL FOREIGN KEY
 );
 
 -- employee table --
 CREATE TABLE employee(
   -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  first_name VARCHAR(50) NOT NULL,
-  last_name INT NOT NULL,
-  role_id INT NOT NULL,
-  manager_id INT NOT NULL
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
+  role_id INT NOT NULL FOREIGN KEY,
+  manager_id INT FOREIGN KEY
 );
 
 -- Create new rows
@@ -56,11 +55,11 @@ VALUES
 INSERT INTO employee
     (first_name, last_name, role_id, manager_id)
 VALUES
-    ('Susie', 'Que', 1, NULL),
-    ('Mike', 'Tyson', 2, 1),
-    ('Aston', 'Kutcher', 3, NULL),
-    ('Kevin', 'Bacon', 4, 3),
-    ('Tom', 'Clancy', 5, NULL),
-    ('Mackenzie', 'Cooke', 6, 5),
-    ('Sara', 'McLaughlin', 7, NULL),
+    ('Nate', 'Hill', 1, NULL),
+    ('Shalane', 'Flanagan', 2, 1),
+    ('Timothee', 'Chalamet', 3, NULL),
+    ('Galen', 'Rupp', 4, 3),
+    ('JRR', 'Tolkien', 5, NULL),
+    ('Samara', 'Weaving', 6, 5),
+    ('Andy', 'Murray', 7, NULL),
     ('Craig', 'Ferguson', 8, 7);
