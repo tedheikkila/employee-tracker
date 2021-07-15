@@ -1,35 +1,59 @@
--- Drops if it already exists --
+-- drops if it already exists --
 DROP DATABASE IF EXISTS employeeTracker_db;
--- Create a database --
+-- create database --
 CREATE DATABASE employeeTracker_db;
 
--- Use programming db for the following statements --
+-- use employeeTracker_db for the following statements --
 USE employeeTracker_db;
 
 -- department table --
 CREATE TABLE department(
-  -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
+  -- "id" automatically increments its default value w/new rows created --
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(30) NOT NULL
 );
 
 -- role table --
 CREATE TABLE role(
-  -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
+  -- "id" automatically increments its default value w/new rows created -- 
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  title VARCHAR(30) NOT NULL,
-  salary DECIMAL(10,4) NOT NULL,
-  department_id INT NOT NULL FOREIGN KEY
+  title VARCHAR(30),
+  salary DECIMAL(10,2),
+  department_id INT,
+  -- fk for dept id -- 
+  FOREIGN KEY (department_id)
+    REFERENCES department(id)
+  -- will delete dept for cascading tables that ref'n dept id & no action on update --
+  ON
+    DELETE CASCADE
+  ON
+    UPDATE NO ACTION 
 );
 
 -- employee table --
 CREATE TABLE employee(
-  -- Create a numeric column called "id" which will automatically increment its default value as we create new rows --
+  -- "id" automatically increments its default value w/new rows created -- 
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
-  role_id INT NOT NULL FOREIGN KEY,
-  manager_id INT FOREIGN KEY
+  first_name VARCHAR(30),
+  last_name VARCHAR(30),
+  role_id INT,
+  -- fk for role id -- 
+  FOREIGN KEY (role_id)
+    REFERENCES role(id)
+  -- will delete dept for cascading tables that ref'n dept id & no update action
+  ON 
+    DELETE CASCADE
+  ON 
+    UPDATE NO ACTION,
+  -- fk for manager id -- 
+  manager_id INT,
+  FOREIGN KEY (manager_id)
+    REFERENCES employee(id)
+  -- will delete dept for cascading tables that ref'n dept id & no update action
+  ON  
+    DELETE CASCADE
+  ON
+    UPDATE NO ACTION 
 );
 
 -- Create new rows
@@ -58,8 +82,8 @@ VALUES
     ('Nate', 'Hill', 1, NULL),
     ('Shalane', 'Flanagan', 2, 1),
     ('Timothee', 'Chalamet', 3, NULL),
-    ('Galen', 'Rupp', 4, 3),
+    ('Galen', 'Rupp', 4, 1),
     ('JRR', 'Tolkien', 5, NULL),
-    ('Samara', 'Weaving', 6, 5),
+    ('Samara', 'Weaving', 6, 2),
     ('Andy', 'Murray', 7, NULL),
-    ('Craig', 'Ferguson', 8, 7);
+    ('Craig', 'Ferguson', 8, 2);
