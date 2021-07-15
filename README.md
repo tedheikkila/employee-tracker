@@ -19,7 +19,7 @@
 
   Technologies used: placeholder.
 
-  * Check out the deployed app on placeholder.
+  * To see the app in action, check out the demo in the Demo section below.
 
 
   ## Installation
@@ -36,7 +36,7 @@
 
   To contribute to this app, please follow these instructions: 
   
-  Please add descriptive commit messages and comments. Remember to do a npm install for mysql and other relevant packages, then create a .gitignore for the node_modules and package-lock.json folder if/when pushing to GitHub.
+  Please add descriptive commit messages and comments. Remember to do a npm install for mysql, inquirer, and other relevant packages, then create a .gitignore for the node_modules and package-lock.json folder if/when pushing to GitHub.
 
   ## License
   
@@ -52,4 +52,4 @@
 
   ## Demo
 
-* Check out the tutorial here >> 
+* Check out the app's demo tutorial here >> 
