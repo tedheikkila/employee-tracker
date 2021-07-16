@@ -39,18 +39,24 @@ viewRoles = (finishViewRoles) => {
   })
 }
 
-// viewRoles: views all roles
+// viewEmployees: views all employees w/their relevant info (joins all employee data to dept and role tables (double join))
 viewEmployees = (finishViewEmployees) => {
-  console.log("Viewing all roles")
-  connection.query("SELECT * FROM role", function (err, res) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.table(res)
-    }
-    finishViewEmployees(err, res)
-  })
-}
+  console.log("Viewing all employees")
+  connection.query(`SELECT * FROM employee 
+                    INNER JOIN
+                    role ON employee.role_id = role.id
+                    INNER JOIN
+                    department ON role.department_id = department.id
+                    `, 
+                    function (err, res) {
+                      if (err) {
+                        console.log(err)
+                      } else {
+                        console.table(res)
+                      }
+                      finishViewEmployees(err, res)
+                    })
+};
 
 // addDept: creates a dept and shows updated dept table
 addDept = (finishAddDept) => {
@@ -136,27 +142,20 @@ addEmployee = (finishAddEmployee) => {
     },
   ]).then(function (res) {
     // inserts user's res into employee's columns (firstname, lastname, roleID, managerID (if applicable))
-    let input = {
+    connection.query("INSERT INTO employee SET ?", 
+    {
       first_name: res.firstName,
       last_name: res.lastName,
-      role_id: res.roleID
+      role_id: res.roleID,
+      manager_id: res.managerID
+    },
+    function() {
+      console.log(`${res.firstName} ${res.lastName} was added`)
+      viewEmployees(finishAddEmployee)
     }
-    if (res.managerID) {
-      input.manager_ID = res.managerID
-    }
-    connection.query("INSERT INTO employee SET ?", input, 
-      function(err, res) {
-        console.log(err)
-        console.log(`${res.firstName} ${res.lastName} was added`)
-        viewEmployees(finishAddEmployee)
-    })
+    )
   }) 
 };
-
-
-
-
-
 
 
 // exit: ends connection for employeeTracker
@@ -166,11 +165,11 @@ endEmployeeTracker = () => {
 
 // export functions back to index.js 
 module.exports = {
-  "endEmployeeTracker": endEmployeeTracker,
   "addDept": addDept,
   "viewDept": viewDept,
   "addRole": addRole,
   "viewRoles": viewRoles,
   "addEmployee": addEmployee,
   "viewEmployees": viewEmployees,
+  "endEmployeeTracker": endEmployeeTracker,
 }
