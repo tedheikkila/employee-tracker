@@ -38,7 +38,7 @@ const employeeTracker = () => {
                         employeeTracker();
                     }); break
                 case "View departments":
-                    database.viewDepartments(function () {
+                    database.viewDept(function () {
                         employeeTracker();
                     }); break
                 case "View roles":
