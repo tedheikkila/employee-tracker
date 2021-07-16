@@ -4,9 +4,14 @@ const inquirer = require("inquirer");
 const cTable = require('console.table');
 const { config } = require("./assets/cred.js");
 
-// set up connection w/mysql (grab creds from config file)
+// set up connection w/mysql using creds from config
 const connection = mysql.createConnection(config);
 
+// connect and check connection
+connection.connect((err) => {
+    if (err) throw err;
+    console.log(`connected as id ${connection.threadId}`);
+});
 
 
 
@@ -14,8 +19,14 @@ const connection = mysql.createConnection(config);
 
 
 
-// connect and check connection
-connection.connect((err) => {
-    if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
-});
+// ends connection for employeeTracker
+endEmployeeTracker = () => {
+  connection.end();
+}
+
+
+// export functions back to index.js 
+module.exports = {
+  "endEmployeeTracker": endEmployeeTracker,
+}
+

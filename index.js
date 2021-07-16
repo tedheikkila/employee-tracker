@@ -1,17 +1,17 @@
-// require in inquirere and database functions
+// require statements
 const inquirer = require("inquirer");
 const database = require("./database")
 
-// employeetracker is the main menu; initiated by npm start
+// employeeTracker is main menu; initiated by node index.js
 const employeeTracker = () => {
-   // add node package logo here later (asciiart-logo NPM PACKAGE) to be EMPLOYEE TRACKER
-    inquirer 
+    // add node package logo here (asciiart-logo NPM PACKAGE) to be shown as EMPLOYEE TRACKER
+    inquirer
         .prompt([
             {
                 type: "list",
-                message: "Entering Employee Tracker",
+                message: "Employee Tracker",
                 name: "startMenu",
-                // MVP choices (add more later if time)
+                // MVP choices
                 choices: [
                     "Add department",
                     "Add role",
@@ -23,42 +23,44 @@ const employeeTracker = () => {
                     "Exit"
                 ]
             },
-        ]).then(function(res) {
+        ]).then(function (res) {
             switch (res.startMenu) {
                 case "Add department":
-                    database.addDept(function() {
+                    database.addDept(function () {
                         employeeTracker();
                     }); break
                 case "Add role":
-                    database.addRole(function() {
+                    database.addRole(function () {
                         employeeTracker();
                     }); break
                 case "Add employee":
-                    database.addEmployee(function() {
+                    database.addEmployee(function () {
                         employeeTracker();
                     }); break
                 case "View departments":
-                    database.viewDepartments(function() {
+                    database.viewDepartments(function () {
                         employeeTracker();
                     }); break
                 case "View roles":
-                    database.viewRoles(function() {
+                    database.viewRoles(function () {
                         employeeTracker();
                     }); break
                 case "View employees":
-                    database.viewEmployees(function() {
+                    database.viewEmployees(function () {
                         employeeTracker();
                     }); break
                 case "Update employee role":
-                    database.updateEmployeeRole(function() {
+                    database.updateEmployeeRole(function () {
                         employeeTracker();
                     }); break
                 case "Exit":
                     console.log("Exiting employee tracker");
-                        return 
+                    database.endEmployeeTracker(function(){
+                        process.exit()
+                    }); break     
             }
         })
 }
 
-// calls employeeTracker to start on npm start
+// calls employeeTracker to start on node index.js
 employeeTracker()
