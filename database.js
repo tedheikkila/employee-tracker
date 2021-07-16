@@ -39,6 +39,19 @@ viewRoles = (finishViewRoles) => {
   })
 }
 
+// viewRoles: views all roles
+viewEmployees = (finishViewEmployees) => {
+  console.log("Viewing all roles")
+  connection.query("SELECT * FROM role", function (err, res) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.table(res)
+    }
+    finishViewEmployees(err, res)
+  })
+}
+
 // addDept: creates a dept and shows updated dept table
 addDept = (finishAddDept) => {
   console.log("Adding new department...")
@@ -97,13 +110,59 @@ addRole = (finishAddRole) => {
   }) 
 };
 
+// addEmployee: creates an employee and shows updated employee table
+addEmployee = (finishAddEmployee) => {
+  console.log("Adding new employee...")
+  inquirer.prompt([
+    {
+      type:"input",
+      message: "Enter in new employee's first name:",
+      name: "firstName"
+    },
+    {
+      type:"input",
+      message: "Enter in their last name:",
+      name: "lastName"
+    },
+    {
+      type:"number",
+      message: "Enter in their role ID #:",
+      name: "roleID"
+    },
+    {
+      type:"number",
+      message: "If manager leave blank and hit Enter. If not a manager, enter in their manager's ID #:",
+      name: "managerID"
+    },
+  ]).then(function (res) {
+    // inserts user's res into employee's columns (firstname, lastname, roleID, managerID (if applicable))
+    let input = {
+      first_name: res.firstName,
+      last_name: res.lastName,
+      role_id: res.roleID
+    }
+    if (res.managerID) {
+      input.manager_ID = res.managerID
+    }
+    connection.query("INSERT INTO employee SET ?", input, 
+      function(err, res) {
+        console.log(err)
+        console.log(`${res.firstName} ${res.lastName} was added`)
+        viewEmployees(finishAddEmployee)
+    })
+  }) 
+};
+
+
+
+
+
 
 
 // exit: ends connection for employeeTracker
 endEmployeeTracker = () => {
   connection.end();
 }
-
 
 // export functions back to index.js 
 module.exports = {
@@ -112,5 +171,6 @@ module.exports = {
   "viewDept": viewDept,
   "addRole": addRole,
   "viewRoles": viewRoles,
+  "addEmployee": addEmployee,
+  "viewEmployees": viewEmployees,
 }
-
