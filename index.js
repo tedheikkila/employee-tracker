@@ -1,10 +1,10 @@
 // require statements
 const inquirer = require("inquirer");
-const database = require("./database")
+const database = require("./database");
+const art = require('ascii-art')
 
 // employeeTracker is main menu; initiated by node index.js
 const employeeTracker = () => {
-    // add node package logo here (asciiart-logo NPM PACKAGE) to be shown as EMPLOYEE TRACKER
     inquirer
         .prompt([
             {
@@ -62,9 +62,9 @@ const employeeTracker = () => {
                         employeeTracker();
                     }); break
                 case "Delete department":
-                database.deleteDept(function () {
-                    employeeTracker();
-                }); break
+                    database.deleteDept(function () {
+                        employeeTracker();
+                    }); break
                 case "Delete role":
                     database.deleteRole(function () {
                         employeeTracker();
@@ -75,12 +75,21 @@ const employeeTracker = () => {
                     }); break
                 case "Exit":
                     console.log("Exiting employee tracker");
-                    database.endEmployeeTracker(function(){
+                    database.endEmployeeTracker(function () {
                         process.exit()
-                    }); break     
+                    }); break
             }
         })
 }
 
-// calls employeeTracker to start on node index.js
-employeeTracker()
+const start = () => {
+    // asciiart shown as EMPLOYEE TRACKER doom text
+    art.font("Employee Tracker", 'doom', (err, rendered) => {
+        console.log(err || rendered)
+    });
+
+    employeeTracker()
+}
+
+// calls start to display ascii-art then go into employeeTracker to start on node index.js
+start()

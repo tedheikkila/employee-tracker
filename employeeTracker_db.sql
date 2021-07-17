@@ -27,7 +27,7 @@ CREATE TABLE role(
   ON
     DELETE CASCADE
   ON
-    UPDATE NO ACTION 
+    UPDATE CASCADE 
 );
 
 -- employee table --
@@ -44,7 +44,7 @@ CREATE TABLE employee(
   ON 
     DELETE CASCADE
   ON 
-    UPDATE NO ACTION,
+    UPDATE CASCADE,
   -- fk for manager id -- 
   manager_id INT,
   FOREIGN KEY (manager_id)
@@ -53,7 +53,7 @@ CREATE TABLE employee(
   ON  
     DELETE CASCADE
   ON
-    UPDATE NO ACTION 
+    UPDATE CASCADE
 );
 
 -- Create new rows
