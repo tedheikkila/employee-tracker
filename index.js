@@ -11,7 +11,7 @@ const employeeTracker = () => {
                 type: "list",
                 message: "Employee Tracker",
                 name: "startMenu",
-                // MVP done; employees
+                // startMenu choices (add, view, update, delete, exit)
                 choices: [
                     "Add department",
                     "Add role",
@@ -23,6 +23,7 @@ const employeeTracker = () => {
                     "Update employee manager",
                     "Delete department",
                     "Delete role",
+                    "Delete employee",
                     "Exit"
                 ]
             },
@@ -66,6 +67,10 @@ const employeeTracker = () => {
                 }); break
                 case "Delete role":
                     database.deleteRole(function () {
+                        employeeTracker();
+                    }); break
+                case "Delete employee":
+                    database.deleteEmployee(function () {
                         employeeTracker();
                     }); break
                 case "Exit":

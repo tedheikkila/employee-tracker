@@ -158,7 +158,7 @@ addEmployee = (finishAddEmployee) => {
 };
 
 // updateEmployeeRole: updates employee's role and shows updated employee table
-function updateEmployeeRole(finishUpdateEmployee) {
+updateEmployeeRole = (finishUpdateEmployee) => {
   console.log("Updating employee's role...\n")
   connection.query("SELECT * FROM employee", function (err, res) {
     console.table(res)
@@ -190,7 +190,7 @@ function updateEmployeeRole(finishUpdateEmployee) {
 }
 
 // updateEmployeeManager: updates employee's manager and shows updated employee table
-function updateEmployeeManager(finishUpdateEmployeeManager) {
+updateEmployeeManager = (finishUpdateEmployeeManager) => {
   console.log("Updating employee's manager...\n")
   connection.query("SELECT * FROM employee", function (err, res) {
     console.table(res)
@@ -221,7 +221,7 @@ function updateEmployeeManager(finishUpdateEmployeeManager) {
   })
 };
 
-// deleteDept: deletes a dept and shows updated dept table
+// deleteDept: shows dept table, deletes a dept, and shows updated dept table
 deleteDept = (finishDeleteDept) => {
   console.log("Deleting a department...\n");
   connection.query("SELECT * FROM department", function (err, res) {
@@ -233,16 +233,16 @@ deleteDept = (finishDeleteDept) => {
         name: "deleteDepartment"
       }
     ]).then(function (res) {
-      var deletedDept = Number(res.deleteDept)
+      let deletedDept = Number(res.deleteDept)
       connection.query("DELETE FROM department WHERE ?", { id: deletedDept }, function (err, res) {
-          console.log(`Deparment ${deletedDept} was deleted\n`)
-          viewDept(finishDeleteDept)
+        console.log(`Deparment ${deletedDept} was deleted\n`)
+        viewDept(finishDeleteDept)
       })
     })
   })
 };
 
-// deleteDept: deletes a dept and shows updated dept table
+// deleteRole: shows role table, deletes a role, and shows updated role table
 deleteRole = (finishDeleteRole) => {
   console.log("Deleting a role...\n");
   connection.query("SELECT * FROM role", function (err, res) {
@@ -254,14 +254,34 @@ deleteRole = (finishDeleteRole) => {
         name: "deleteRole"
       }
     ]).then(function (res) {
-      var deletedRole = Number(res.deleteRole)
+      let deletedRole = Number(res.deleteRole)
       connection.query("DELETE FROM role WHERE ?", { id: deletedRole }, function (err, res) {
-          console.log(`Role ${deletedRole} was deleted\n`)
-          viewRoles(finishDeleteRole)
+        console.log(`Role ${deletedRole} was deleted\n`)
+        viewRoles(finishDeleteRole)
       })
     })
   })
 };
+
+// deleteEmployee: shows employee table, deletes employee, and shows updated employee table
+deleteEmployee = (finishDeleteEmployee) => {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    console.table(res);
+    inquirer.prompt(
+      {
+        type: "number",
+        message: "Enter in employee's ID you want to remove:",
+        name: "deleteEmployee",
+      })
+      .then(function (res) {
+        let deletedEmployee = Number(res.deleteEmployee);
+        connection.query("DELETE FROM employee WHERE ?", { id: deletedEmployee }, function (err, res) {
+          console.log("Employee removed");
+          viewEmployees(finishDeleteEmployee);
+        });
+      })
+  })
+}
 
 // exit: ends connection for employeeTracker
 endEmployeeTracker = () => {
@@ -280,6 +300,6 @@ module.exports = {
   "updateEmployeeManager": updateEmployeeManager,
   "deleteDept": deleteDept,
   "deleteRole": deleteRole,
+  "deleteEmployee": deleteEmployee,
   "endEmployeeTracker": endEmployeeTracker,
-
 }
