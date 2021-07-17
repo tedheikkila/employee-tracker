@@ -170,11 +170,12 @@ function updateEmployeeRole(finishUpdateEmployee) {
           },
           {
             type: "number",
-            message: "Enter in employee's new ID:",
+            message: "Enter in employee's new role ID #:",
             name: "newEmployeeID"
           }
         ]
       ).then((res) => {
+        // takes in their current ID and resets their role id to new role
         connection.query("UPDATE employee SET ? WHERE ?",
         [
           {role_id: res.newEmployeeID},

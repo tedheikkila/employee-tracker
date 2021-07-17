@@ -11,7 +11,7 @@ const employeeTracker = () => {
                 type: "list",
                 message: "Employee Tracker",
                 name: "startMenu",
-                // MVP choices
+                // MVP done; add delete dept, role, employees
                 choices: [
                     "Add department",
                     "Add role",
