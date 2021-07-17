@@ -1,3 +1,5 @@
+-- seed sql file for employeeTracker_db, TWH, 6-17-21 --
+
 -- drops if it already exists --
 DROP DATABASE IF EXISTS employeeTracker_db;
 -- create database --
@@ -56,7 +58,7 @@ CREATE TABLE employee(
     UPDATE CASCADE
 );
 
--- Create new rows
+-- create new values for table rows (seeding tables w/data)
 USE employeeTracker_db;
 INSERT INTO department
     (name)

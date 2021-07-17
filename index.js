@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const database = require("./database");
 const art = require('ascii-art')
 
-// employeeTracker is main menu; allows user to navigate between app's features
+// employeeTracker: main menu; allows user to navigate between app's features
 const employeeTracker = () => {
     inquirer
         .prompt([
@@ -11,7 +11,7 @@ const employeeTracker = () => {
                 type: "list",
                 message: "Employee Tracker",
                 name: "startMenu",
-                // startMenu choices (add, view, update, delete, exit)
+                // startMenu choices include: add, view, update, delete, exit options
                 choices: [
                     "Add department",
                     "Add role",
@@ -82,23 +82,23 @@ const employeeTracker = () => {
         })
 }
 
-// start: displays ascii-art then goes into employeeTracker
+// start: displays ascii-art then goes into employeeTracker's main menu
 const start = () => {
-    // asciiart shown as EMPLOYEE TRACKER doom text
-    art.font("Employee Tracker\n", 'doom', (err, rendered) => {
-        console.log(err || rendered)
+    // asciiart shown as EMPLOYEE TRACKER Dr. Doom text
+    art.font("Employee Tracker\n", 'doom', (err, render) => {
+        console.log(err || render)
     });
     inquirer
         .prompt(
             { type: 'confirm', message: 'Enter Employee Tracker?', name: 'Enter' },
         )
         .then((data) => {
-            if(data === "true") {
-            employeeTracker()
+            if (data === "true") {
+                employeeTracker()
             } else console.log("Press CTRL + C to exit app")
-             return
+            return
         })
 }
 
-// calls start on node index.js 
+// calls start to start app on node index.js terminal command
 start()

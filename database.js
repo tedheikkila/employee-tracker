@@ -2,8 +2,10 @@
 let mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require('console.table');
-const { config } = require("./assets/cred.js");
 const art = require('ascii-art')
+
+// ATTENTION NEW USERS: create a cred.js file and place this into an assets folder; include this folder in gitignore file
+const { config } = require("./assets/cred.js");
 
 // set up connection w/mysql using creds from config
 const connection = mysql.createConnection(config);
@@ -40,7 +42,8 @@ viewRoles = (finishViewRoles) => {
   })
 }
 
-// viewEmployees: views all employees w/their relevant info (joins all employee data to dept and role tables (double join))
+// viewEmployees: views all employees w/their relevant info cont...
+// joins all employee data to dept and role tables (double join). not an ideal join setup but it works
 viewEmployees = (finishViewEmployees) => {
   console.log("Viewing all employees\n")
   connection.query(`SELECT * FROM employee 
@@ -61,7 +64,7 @@ viewEmployees = (finishViewEmployees) => {
 
 // addDept: creates a dept and shows updated dept table
 addDept = (finishAddDept) => {
-  console.log("Adding new department...\n")
+  console.log("Adding new department\n")
   inquirer.prompt([
     {
       type: "input",
@@ -84,7 +87,7 @@ addDept = (finishAddDept) => {
 
 // addRole: creates a role and shows updated role table
 addRole = (finishAddRole) => {
-  console.log("Adding new role...")
+  console.log("Adding new role...\n")
   inquirer.prompt([
     {
       type: "input",
@@ -160,14 +163,14 @@ addEmployee = (finishAddEmployee) => {
 
 // updateEmployeeRole: updates employee's role and shows updated employee table
 updateEmployeeRole = (finishUpdateEmployee) => {
-  console.log("Updating employee's role...\n")
+  console.log("Updating employee's role\n")
   connection.query("SELECT * FROM employee", function (err, res) {
     console.table(res)
     inquirer.prompt(
       [
         {
           type: "number",
-          message: "Input ID for employee you're updating:",
+          message: "Input ID for employee you are updating:",
           name: "oldEmployeeID"
         },
         {
@@ -192,7 +195,7 @@ updateEmployeeRole = (finishUpdateEmployee) => {
 
 // updateEmployeeManager: updates employee's manager and shows updated employee table
 updateEmployeeManager = (finishUpdateEmployeeManager) => {
-  console.log("Updating employee's manager...\n")
+  console.log("Updating employee's manager\n")
   connection.query("SELECT * FROM employee", function (err, res) {
     console.table(res)
     inquirer.prompt(
@@ -224,7 +227,7 @@ updateEmployeeManager = (finishUpdateEmployeeManager) => {
 
 // deleteDept: shows dept table, deletes a dept, and shows updated dept table
 deleteDept = (finishDeleteDept) => {
-  console.log("Deleting a department...\n");
+  console.log("Deleting a department\n");
   connection.query("SELECT * FROM department", function (err, res) {
     console.table(res)
     inquirer.prompt([
@@ -245,7 +248,7 @@ deleteDept = (finishDeleteDept) => {
 
 // deleteRole: shows role table, deletes a role, and shows updated role table
 deleteRole = (finishDeleteRole) => {
-  console.log("Deleting a role...\n");
+  console.log("Deleting a role\n");
   connection.query("SELECT * FROM role", function (err, res) {
     console.table(res)
     inquirer.prompt([
@@ -277,7 +280,7 @@ deleteEmployee = (finishDeleteEmployee) => {
       .then(function (res) {
         let deletedEmployee = Number(res.deleteEmployee);
         connection.query("DELETE FROM employee WHERE ?", { id: deletedEmployee }, function (err, res) {
-          console.log("Employee removed");
+          console.log("Employee removed\n");
           viewEmployees(finishDeleteEmployee);
         });
       })
