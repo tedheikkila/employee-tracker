@@ -233,10 +233,31 @@ deleteDept = (finishDeleteDept) => {
         name: "deleteDepartment"
       }
     ]).then(function (res) {
-      var deletedDept = Number(res.deleteDepartment)
+      var deletedDept = Number(res.deleteDept)
       connection.query("DELETE FROM department WHERE ?", { id: deletedDept }, function (err, res) {
           console.log(`Deparment ${deletedDept} was deleted\n`)
           viewDept(finishDeleteDept)
+      })
+    })
+  })
+};
+
+// deleteDept: deletes a dept and shows updated dept table
+deleteRole = (finishDeleteRole) => {
+  console.log("Deleting a role...\n");
+  connection.query("SELECT * FROM role", function (err, res) {
+    console.table(res)
+    inquirer.prompt([
+      {
+        type: "number",
+        message: "Enter in role ID #:",
+        name: "deleteRole"
+      }
+    ]).then(function (res) {
+      var deletedRole = Number(res.deleteRole)
+      connection.query("DELETE FROM role WHERE ?", { id: deletedRole }, function (err, res) {
+          console.log(`Role ${deletedRole} was deleted\n`)
+          viewRoles(finishDeleteRole)
       })
     })
   })
@@ -258,6 +279,7 @@ module.exports = {
   "updateEmployeeRole": updateEmployeeRole,
   "updateEmployeeManager": updateEmployeeManager,
   "deleteDept": deleteDept,
+  "deleteRole": deleteRole,
   "endEmployeeTracker": endEmployeeTracker,
 
 }
