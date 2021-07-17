@@ -4,7 +4,8 @@ const inquirer = require("inquirer");
 const cTable = require('console.table');
 const art = require('ascii-art')
 
-// ATTENTION NEW USERS: create a cred.js file and place this into an assets folder; include this folder in gitignore file
+// ATTENTION NEW USERS: create a cred.js file and place this into an assets folder cont...
+// include this folder in gitignore file. see screenshots section for the example cred file
 const { config } = require("./assets/cred.js");
 
 // set up connection w/mysql using creds from config
