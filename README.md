@@ -10,6 +10,7 @@
   - [Tests](#tests)
   - [Questions](#questions)
   - [Demo](#demo)
+  - [Screenshots](#screenshots)
 
   ## Description
 
@@ -52,4 +53,43 @@
 
   ## Demo
 
-* Check out the app's demo tutorial here >> 
+  * Check out the app's demo tutorial here >> https://drive.google.com/file/d/1QvgWCmkjkXdT6kwIBDIYV9xa-PmxQHhw/view?usp=sharing 
+
+  ## Screenshots
+
+  * cred file setup (best practice use .env file setup; this app uses gitignore for assets folder, which contains the cred.js file)
+
+  ![](./images/hw12-1.png)
+
+   * homepage
+
+  ![](./images/hw12-2.png)
+
+   * start menu
+
+  ![](./images/hw12-3.png)
+
+  * all departments
+
+  ![](./images/hw12-4.png)
+
+   * all roles
+
+  ![](./images/hw12-5.png)
+
+   * all employees
+
+  ![](./images/hw12-6.png)
+
+   * app closes
+
+  ![](./images/hw12-7.png)
+
+
+
+
+
+
+
+
+

@@ -100,6 +100,5 @@ const start = () => {
         })
 }
 
-
 // calls start to start app on node index.js terminal command
 start()
