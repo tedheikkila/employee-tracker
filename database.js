@@ -1,12 +1,12 @@
 // require statements
-let mysql = require("mysql");
-const inquirer = require("inquirer");
-const cTable = require('console.table');
-const art = require('ascii-art')
 
 // ATTENTION NEW USERS: create a cred.js file and place this into an assets folder cont...
 // include this folder in gitignore file. see screenshots section for the example cred file
 const { config } = require("./assets/cred.js");
+let mysql = require("mysql");
+const inquirer = require("inquirer");
+const cTable = require('console.table');
+const art = require('ascii-art')
 
 // set up connection w/mysql using creds from config
 const connection = mysql.createConnection(config);

@@ -84,21 +84,23 @@ const employeeTracker = () => {
 
 // start: displays ascii-art then goes into employeeTracker's main menu
 const start = () => {
-    // asciiart shown as EMPLOYEE TRACKER Dr. Doom text
-    art.font("Employee Tracker\n", 'doom', (err, render) => {
-        console.log(err || render)
+    // asciiart shown as EMPLOYEE TRACKER doom text
+    art.font("Employee Tracker\n", 'doom', (err, rendered) => {
+        console.log(err || rendered)
     });
     inquirer
-        .prompt(
-            { type: 'confirm', message: 'Enter Employee Tracker?', name: 'Enter' },
-        )
-        .then((data) => {
-            if (data === "true") {
-                employeeTracker()
-            } else console.log("Press CTRL + C to exit app")
-            return
-        })
+    .prompt(
+        { type: 'list', message: 'Enter Employee Tracker?', choices: ["Yes", "No"], name: 'Enter' },
+    )
+    .then((data) => {
+        console.log(data.Enter)
+        if (data.Enter == "Yes") {
+            employeeTracker()
+        } else console.log("Press CTRL + C to exit app")
+         return
+    })
 }
+
 
 // calls start to start app on node index.js terminal command
 start()
