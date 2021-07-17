@@ -10,12 +10,12 @@ const connection = mysql.createConnection(config);
 // connect and check connection
 connection.connect((err) => {
     if (err) throw err;
-    console.log(`connected as id ${connection.threadId}`);
+    // console.log(`connected as id ${connection.threadId}`);
 });
 
 // viewDept: views all depts 
 viewDept = (finishViewDept) => {
-  console.log("Viewing all departments")
+  console.log("Viewing all departments\n")
   connection.query("SELECT * FROM department", function (err, res) {
     if (err) {
       console.log(err)
@@ -28,7 +28,7 @@ viewDept = (finishViewDept) => {
 
 // viewRoles: views all roles
 viewRoles = (finishViewRoles) => {
-  console.log("Viewing all roles")
+  console.log("Viewing all roles\n")
   connection.query("SELECT * FROM role", function (err, res) {
     if (err) {
       console.log(err)
@@ -41,11 +41,11 @@ viewRoles = (finishViewRoles) => {
 
 // viewEmployees: views all employees w/their relevant info (joins all employee data to dept and role tables (double join))
 viewEmployees = (finishViewEmployees) => {
-  console.log("Viewing all employees")
+  console.log("Viewing all employees\n")
   connection.query(`SELECT * FROM employee 
-                    INNER JOIN
+                    JOIN
                     role ON employee.role_id = role.id
-                    INNER JOIN
+                    JOIN
                     department ON role.department_id = department.id
                     `, 
                     function (err, res) {
@@ -60,7 +60,7 @@ viewEmployees = (finishViewEmployees) => {
 
 // addDept: creates a dept and shows updated dept table
 addDept = (finishAddDept) => {
-  console.log("Adding new department...")
+  console.log("Adding new department...\n")
   inquirer.prompt([
     {
       type:"input",
@@ -74,7 +74,7 @@ addDept = (finishAddDept) => {
       name: res.newDepartment
     },
     function() {
-      console.log(`Deparment ${res.newDepartment} was created`)
+      console.log(`Deparment ${res.newDepartment} was created\n`)
       viewDept(finishAddDept)
     }
     )
@@ -109,7 +109,7 @@ addRole = (finishAddRole) => {
       department_id: res.deptID
     },
     function() {
-      console.log(`Role ${res.newRole} was created`)
+      console.log(`Role ${res.newRole} was created\n`)
       viewRoles(finishAddRole)
     }
     )
@@ -118,7 +118,7 @@ addRole = (finishAddRole) => {
 
 // addEmployee: creates an employee and shows updated employee table
 addEmployee = (finishAddEmployee) => {
-  console.log("Adding new employee...")
+  console.log("Adding new employee...\n")
   inquirer.prompt([
     {
       type:"input",
@@ -150,7 +150,7 @@ addEmployee = (finishAddEmployee) => {
       manager_id: res.managerID
     },
     function() {
-      console.log(`${res.firstName} ${res.lastName} was added`)
+      console.log(`${res.firstName} ${res.lastName} was added\n`)
       viewEmployees(finishAddEmployee)
     }
     )
