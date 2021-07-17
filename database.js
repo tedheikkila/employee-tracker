@@ -137,7 +137,7 @@ addEmployee = (finishAddEmployee) => {
     },
     {
       type:"number",
-      message: "If manager leave blank and hit Enter. If not a manager, enter in their manager's ID #:",
+      message: "If manager leave blank and hit Enter. If not a manager, enter in their manager's employee ID #:",
       name: "managerID"
     },
   ]).then(function (res) {
@@ -157,6 +157,35 @@ addEmployee = (finishAddEmployee) => {
   }) 
 };
 
+// updateEmployeeRole: updates an employee and shows updated employee table
+function updateEmployeeRole(finishUpdateEmployee) {
+  connection.query("SELECT * FROM employee", function (err, res) {
+    console.table(res)
+      inquirer.prompt (
+        [
+          {
+            type: "number",
+            message: "Input ID for employee you're updating:",
+            name: "oldEmployeeID"
+          },
+          {
+            type: "number",
+            message: "Enter in employee's new ID:",
+            name: "newEmployeeID"
+          }
+        ]
+      ).then((res) => {
+        connection.query("UPDATE employee SET ? WHERE ?",
+        [
+          {role_id: res.newEmployeeID},
+          {id: res.oldEmployeeID}
+        ], function (err, res) {
+          console.log(err)
+          viewEmployees(finishUpdateEmployee)
+        });
+      })
+  })
+}
 
 // exit: ends connection for employeeTracker
 endEmployeeTracker = () => {
@@ -171,5 +200,6 @@ module.exports = {
   "viewRoles": viewRoles,
   "addEmployee": addEmployee,
   "viewEmployees": viewEmployees,
+  "updateEmployeeRole": updateEmployeeRole,
   "endEmployeeTracker": endEmployeeTracker,
 }
