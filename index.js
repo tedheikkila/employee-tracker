@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 const database = require("./database");
 const art = require('ascii-art')
 
-// employeeTracker is main menu; initiated by node index.js
+// employeeTracker is main menu; allows user to navigate between app's features
 const employeeTracker = () => {
     inquirer
         .prompt([
@@ -82,14 +82,23 @@ const employeeTracker = () => {
         })
 }
 
+// start: displays ascii-art then goes into employeeTracker
 const start = () => {
     // asciiart shown as EMPLOYEE TRACKER doom text
-    art.font("Employee Tracker", 'doom', (err, rendered) => {
+    art.font("Employee Tracker\n", 'doom', (err, rendered) => {
         console.log(err || rendered)
     });
-
-    employeeTracker()
+    inquirer
+        .prompt(
+            { type: 'confirm', message: 'Enter Employee Tracker?', name: 'Enter' },
+        )
+        .then((data) => {
+            if(data === "true") {
+            employeeTracker()
+            } else console.log("Press CTRL + C to exit app")
+             return
+        })
 }
 
-// calls start to display ascii-art then go into employeeTracker to start on node index.js
+// calls start on node index.js 
 start()

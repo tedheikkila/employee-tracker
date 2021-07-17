@@ -3,6 +3,7 @@ let mysql = require("mysql");
 const inquirer = require("inquirer");
 const cTable = require('console.table');
 const { config } = require("./assets/cred.js");
+const art = require('ascii-art')
 
 // set up connection w/mysql using creds from config
 const connection = mysql.createConnection(config);
@@ -230,7 +231,7 @@ deleteDept = (finishDeleteDept) => {
       {
         type: "number",
         message: "Enter in department ID #:",
-        name: "deleteDepartment"
+        name: "deleteDept"
       }
     ]).then(function (res) {
       let deletedDept = Number(res.deleteDept)
@@ -285,6 +286,10 @@ deleteEmployee = (finishDeleteEmployee) => {
 
 // exit: ends connection for employeeTracker
 endEmployeeTracker = () => {
+  // asciiart shown as EMPLOYEE TRACKER doom text
+  art.font("Goodbye\n", 'doom', (err, rendered) => {
+    console.log(err || rendered)
+  });
   connection.end();
 }
 
