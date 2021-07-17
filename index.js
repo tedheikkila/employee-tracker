@@ -20,6 +20,7 @@ const employeeTracker = () => {
                     "View roles",
                     "View employees",
                     "Update employee role",
+                    "Update employee manager",
                     "Exit"
                 ]
             },
@@ -51,6 +52,10 @@ const employeeTracker = () => {
                     }); break
                 case "Update employee role":
                     database.updateEmployeeRole(function () {
+                        employeeTracker();
+                    }); break
+                case "Update employee manager":
+                    database.updateEmployeeManager(function () {
                         employeeTracker();
                     }); break
                 case "Exit":
